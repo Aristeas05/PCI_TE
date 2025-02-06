@@ -6,7 +6,15 @@ import "ag-grid-community/styles/ag-theme-alpine.css";
 
 const columnDefs: ColDef[] = [
   { field: "designation", headerName: "Designation", filter: "agTextColumnFilter" },
-  { field: "discovery_date", headerName: "Discovery Date", filter: "agDateColumnFilter" },
+  { field: "discovery_date", headerName: "Discovery Date", filter: "agDateColumnFilter", cellClass: "dateUS",
+    valueFormatter: (params) => {
+      const date = new Date(params.value);
+      const day = date.getDate().toString().padStart(2, "0");
+      const month = (date.getMonth() + 1).toString().padStart(2, "0");
+      const year = date.getFullYear().toString().substring(2);
+      return month + "/" + day + "/" + year;
+    }
+  ,},
   { field: "h_mag", headerName: "H (mag)", filter: "agNumberColumnFilter"  },
   { field: "moid_au", headerName: "MOID (au)", filter: "agNumberColumnFilter" },
   { field: "q_au_1", headerName: "q (au)", filter: "agNumberColumnFilter"  },
